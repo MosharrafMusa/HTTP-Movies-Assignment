@@ -30,6 +30,18 @@ function Movie({ addToSavedList, getMovieList }) {
       .catch((err) => console.log(err.response));
   };
 
+  const deleteMovie = (e) => {
+    e.preventDefault();
+    axios
+      .delete(`http://localhost:5000/api/movies/${params.id}`)
+      .then((res) => {
+        console.log(res);
+        history.push("/");
+        getMovieList();
+      })
+      .catch((err) => console.log(err));
+  };
+
   const saveMovie = () => {
     addToSavedList(movie);
   };
@@ -57,6 +69,10 @@ function Movie({ addToSavedList, getMovieList }) {
           value={updates}
         />
         <button>Submit updates</button>
+      </form>
+      <form onSubmit={deleteMovie}>
+        <h2>Delete Movie title</h2>
+        <button>Delete Movie</button>
       </form>
     </div>
   );
